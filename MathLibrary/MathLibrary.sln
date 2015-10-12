@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLibrary", "MathLibrary.vcproj", "{513899FE-0F00-4AE5-8B41-F57AA2D63377}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcproj", "{8571FE5A-56CF-4B0D-B56F-6B4928F0FFCB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{513899FE-0F00-4AE5-8B41-F57AA2D63377} = {513899FE-0F00-4AE5-8B41-F57AA2D63377}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{513899FE-0F00-4AE5-8B41-F57AA2D63377}.Debug|Win32.ActiveCfg = Debug|Win32
+		{513899FE-0F00-4AE5-8B41-F57AA2D63377}.Debug|Win32.Build.0 = Debug|Win32
+		{513899FE-0F00-4AE5-8B41-F57AA2D63377}.Release|Win32.ActiveCfg = Release|Win32
+		{513899FE-0F00-4AE5-8B41-F57AA2D63377}.Release|Win32.Build.0 = Release|Win32
+		{8571FE5A-56CF-4B0D-B56F-6B4928F0FFCB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8571FE5A-56CF-4B0D-B56F-6B4928F0FFCB}.Debug|Win32.Build.0 = Debug|Win32
+		{8571FE5A-56CF-4B0D-B56F-6B4928F0FFCB}.Release|Win32.ActiveCfg = Release|Win32
+		{8571FE5A-56CF-4B0D-B56F-6B4928F0FFCB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
