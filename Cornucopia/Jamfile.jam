@@ -1,0 +1,74 @@
+# Jamfile for Cornucopia
+
+SubDir SPENCERS_PROJECTS Cornucopia ;
+
+CORNUCOPIA_NODE_SRCS =
+	Code/Nodes/BezierCurveNode.cpp
+	Code/Nodes/BezierCurveNode.h
+	Code/Nodes/BivectorE3GANode.cpp
+	Code/Nodes/BivectorE3GANode.h
+	Code/Nodes/BooleanNode.cpp
+	Code/Nodes/BooleanNode.h
+	Code/Nodes/BoundedBoxNode.cpp
+	Code/Nodes/BoundedBoxNode.h
+	Code/Nodes/BoundedFloatNode.cpp
+	Code/Nodes/BoundedFloatNode.h
+	Code/Nodes/BoundedFloatPairNode.cpp
+	Code/Nodes/BoundedFloatPairNode.h
+	Code/Nodes/BoundedPointListNode.cpp
+	Code/Nodes/BoundedPointListNode.h
+	Code/Nodes/ColorRGBANode.cpp
+	Code/Nodes/ColorRGBANode.h
+	Code/Nodes/FileReferenceNode.cpp
+	Code/Nodes/FileReferenceNode.h
+	Code/Nodes/OrientationNode.cpp
+	Code/Nodes/OrientationNode.h
+	Code/Nodes/OriginReferenceNode.cpp
+	Code/Nodes/OriginReferenceNode.h
+	Code/Nodes/SelectionNode.cpp
+	Code/Nodes/SelectionNode.h
+	Code/Nodes/StringNode.cpp
+	Code/Nodes/StringNode.h
+	Code/Nodes/VectorE3GANode.cpp
+	Code/Nodes/VectorE3GANode.h
+;
+
+CORNUCOPIA_SRCS =
+	Code/Allocator.cpp
+	Code/Allocator.h
+	Code/ClassInfo.h
+	Code/Context.cpp
+	Code/Context.h
+	Code/Cornucopia.h
+	Code/Error.cpp
+	Code/Error.h
+	Code/MetaData.cpp
+	Code/MetaData.h
+	Code/Node.cpp
+	Code/Node.h
+	Code/Reader.cpp
+	Code/Reader.h
+	Code/Writer.cpp
+	Code/Writer.h
+	$(CORNUCOPIA_NODE_SRCS)
+;
+
+C.IncludeDirectories Cornucopia :
+	Code/lua-5.2.1
+	Code/c3ga
+	Code/Nodes
+	Code
+	"C:/Program Files (x86)/boost/boost_1_50"
+	"C:/Program Files/boost/boost_1_50"
+;
+
+C.OutputPath Cornucopia : Build ;
+C.Defines Cornucopia : CORNUCOPIA_DLL_EXPORTS LUA_BUILD_AS_DLL ;
+C.LinkLibraries Cornucopia : Lua c3ga ;
+C.Library Cornucopia : $(CORNUCOPIA_SRCS) : shared ;
+
+SubInclude SPENCERS_PROJECTS Cornucopia Code lua-5.2.1 ;
+SubInclude SPENCERS_PROJECTS Cornucopia Code c3ga ;
+SubInclude SPENCERS_PROJECTS Cornucopia Code TestProgram ;
+
+# Jamfile for Cornucopia

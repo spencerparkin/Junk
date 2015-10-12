@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProgram", "TestProgram.vcproj", "{EDD4BCE2-ECCF-4E3D-8BC4-6D8FBDDA109D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{028673A4-7EFB-4260-BD78-612C7BD81B70} = {028673A4-7EFB-4260-BD78-612C7BD81B70}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CornucopiaLibrary", "CornucopiaLibrary.vcproj", "{028673A4-7EFB-4260-BD78-612C7BD81B70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDD4BCE2-ECCF-4E3D-8BC4-6D8FBDDA109D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EDD4BCE2-ECCF-4E3D-8BC4-6D8FBDDA109D}.Debug|Win32.Build.0 = Debug|Win32
+		{EDD4BCE2-ECCF-4E3D-8BC4-6D8FBDDA109D}.Release|Win32.ActiveCfg = Release|Win32
+		{EDD4BCE2-ECCF-4E3D-8BC4-6D8FBDDA109D}.Release|Win32.Build.0 = Release|Win32
+		{028673A4-7EFB-4260-BD78-612C7BD81B70}.Debug|Win32.ActiveCfg = Debug|Win32
+		{028673A4-7EFB-4260-BD78-612C7BD81B70}.Debug|Win32.Build.0 = Debug|Win32
+		{028673A4-7EFB-4260-BD78-612C7BD81B70}.Release|Win32.ActiveCfg = Release|Win32
+		{028673A4-7EFB-4260-BD78-612C7BD81B70}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

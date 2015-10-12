@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BoundedFloatPairNode</title>
+	</head>
+
+	<body>
+		
+		<center>
+			<h1>BoundedFloatPairNode</h1>
+		</center>
+		
+		<p>
+		The BoundedFloatPairNode represents a pair of double precision floating-point values (x,y),
+		with x <= y, and each contained with the compact interval [a,b].  (i.e., we have a <= x <= y <= b.)
+		The slider (shown below) has a range determined by the interval [a,b].  The shaded sub-region
+		of the slider represents the sub-interval [x,y].
+		</p>
+		
+		<center><img src="BoundedFloatPairNodeY.png"/></center>
+		
+		<p>
+		The knob shown above will control the y-value.  To control the x-value, make sure that the slider
+		control has focus (click on the knob without sliding it), then push the LEFT arrow key.  This will
+		move the knob to the other side of the shaded sub-region (see below).
+		</p>
+		
+		<center><img src="BoundedFloatPairNodeX.png"/></center>
+		
+		<p>
+		You can now use the slider to control the x-value.
+		</p>
+		
+		<p>
+		The x and y values can also be entered using the left and right text boxes, respectively, shown in either of the pictures
+		above.  If the x-value entered is not in [a,y], it will be clamped to the nearest end-point.  Similarly,
+		if the y-value entered is not in [x,b], it will also be clamped to the nearest end-point.
+		</p>
+		
+		<p>
+		<a href="../NodeIndex.html">Return to Node Index</a>
+		</p>
+		
+	</body>
+
+</html>

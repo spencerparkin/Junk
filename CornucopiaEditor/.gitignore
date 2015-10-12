@@ -1,0 +1,22 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Intermediate build files
+Build/
+
+# VS Proj temp files
+*.suo
+*.ncb
+*.user
+*.tss

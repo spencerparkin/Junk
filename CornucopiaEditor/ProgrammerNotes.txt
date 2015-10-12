@@ -1,0 +1,35 @@
+
+BUG: The persistance of node control panals in the dockable style interface needs to be revisited badly.
+     On undo/redo, panels pop up that were never open.  Why?
+
+Use file-watcher class to detect changes in the file we're editing.
+Handle that case by requestion a reload of the file.
+
+Tons of 12-byte allocations potentially leak.  What's the repro?  Where's the leak?
+
+Provide plugin-in
+capabilities for nodes created outside scope of built-in types?
+We'd have to make sure the plugin and the editor were sharing
+the library code as a DLL, so static linking wouldn't work.
+
+BUG: Expansion states are not being honored and/or not being persistent.
+
+BUG: In control tree interface style, user must hit enter twice to bring up a panel.
+     Also, panel layouts are not presisting.
+
+Have data object support pasting to text files as lua.
+It might also support pasting from text-files that have lua.
+
+Plugin for live-tweaking.
+
+Editor should expose the ability to set the fileRefNode's base path.
+A plugin should be able to do this too, maybe?
+
+Floating panels in one tab will remain on top when a different tab is selected.
+I need to hide such floating panels when the tab is changed.
+
+There should be a plugin entry point for those plugins that want to define their own cornucopia node types.
+Create a sample plugin that creates its own node type.
+
+The tweak telemetry logger plugin shows that tweak events are not
+being sent from everywhere they need to be.  Fix it.

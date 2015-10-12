@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Programmer's Guide</title>
+	</head>
+
+	<body>
+		
+		<center>
+			<h1>Cornucopia Documentation -- Programmer's Guide</h1>
+		</center>
+		
+		<h2>Introduction and Motivation</h2>
+		
+		<p>
+		Cornucopia is a file system persistent data-structure in the form of a tree consistening of nodes, where each
+		node in the tree takes on any one of a number of pre-defined types.  The core Cornucopia library defines a
+		number of built-in node types, and allows users of the library to extend it by defining their own types, and
+		even overriding pre-existing types.
+		It is important to realize that the library does not scale in the size of these trees.  That is, the core library
+		and its users, such as the Cornucopia Editor, were not meant to handle very large trees.  Being trees of a moderate
+		size that a human being wouldn't mind exploring in an exhaustive search to completion, the algorithms in Cornucopia
+		and the Cornucopia Editor are often linear in the number of nodes contained in any such tree.  The tree data-structure
+		is used as nothing more than a hierarchical organization device for moderately sized chunks of human-structured data.
+		</p>
+		
+		<p>
+		Cornucopia was concieved as a data-driven replacement for, and over-all design improvement of, the author's initial
+		attempt to roll out a set of file formats, the instances of which to be authored by artists and processed by
+		pipeline tools, all within a production environment.  Unlike the original system, Cornucopia does a much
+		better job of providing maintainability of the file formats while also minimizing any potential workflow impediments to artists
+		working on Cornucopia files.  By this it is meant that a Cornucopia file format can be modified while artists,
+		unaware of any underlying changes, continue to author content.  Though file format changes don't happen that often,
+		they do happen, and in such cases, there needs to be a plan for upgrading all existing content.  More on this is
+		discussed later on.
+		</p>
+		
+		<h2>Software Design and Implementation</h2>
+		
+		<p>
+		Another improvement in Cornucopia over the original system is its modular design.  A major flaw in the original
+		system's design was its unfortunate and unintentional need for code duplication between tools that process
+		instances of the file format.  This clearly hinders software maintainability and promotes bugs.  The following
+		diagram illustrates Cornucopia's simple, modular design.
+		</p>
+		
+		<center><img src="SoftwareDesign.png"/></center>
+		
+		<p>
+		Adjacent boxes represent static linking, while solid arrows represent implicit dynamic linking.
+		The dashed arrow represents explicit dynamic linking.  It is important that the Cornucopia Editor
+		and its plugins both dynamically link against the core Cornucopia library, so that only one copy
+		of the Lua virtual machine be resident in the process's address space.
+		</p>
+		
+		<p>
+		Utilizing plugins for extended functionality, the Cornucopia Editor program itself can maintain a
+		simple design that doesn't need knowledge of specific external systems.  A source control plugin
+		can add its own functionality to the Cornucopia Editor's interface for dealing with the tasks of
+		checking files in and out of a central repository.  Another plugin can be written that communicates
+		with the game engine to provide live-authoring capabilities.
+		</p>
+		
+		<p>
+		Also linked with the core Cornucopia library is a command-line tool that can be used by the build
+		system to process authored content and turn it into game-engine ready data.  The core Cornucopia
+		library acts as an abstraction layer between tools, (such as the editor and command-line tool), and
+		the file system.  As such, it houses the ability to read Cornucopia trees into memory from
+		disk and write them to the file system.  Once in memory, a tool has access to the tree in the form
+		of instances of C++ classes, each of which being a derivative, directly or indirectly, of the
+		Cornucopia base class for all nodes.  This base class is not abstract, as by itself it is useful
+		as a grouping node.  All nodes, therefore, can act as grouping nodes -- nodes that logically
+		group a collection of other nodes under a reasonable category.  The Cornucopia Editor uses
+		this organizational scheme to present its data to the user in a human-friendly way.  The command-line
+		tool, on the other-hand, would not care, and simply examine the data, (key-value pairs, more or less),
+		in each node to produce its results.
+		</p>
+		
+		<h2>More Stuff...</h2>
+		
+		Explain file-formats as template files with default values here.
+		
+	</body>
+
+</html>

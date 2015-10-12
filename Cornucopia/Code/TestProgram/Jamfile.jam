@@ -1,0 +1,14 @@
+# Jamfile for TestProgram
+
+SubDir SPENCERS_PROJECTS Cornucopia Code TestProgram ;
+
+TESTPROGRAM_SRCS =
+	Main.cpp
+;
+
+C.OutputPath TestProgram : ../../Build ;
+C.IncludeDirectories TestProgram : .. ../lua-5.2.1 ;
+C.LinkLibraries TestProgram : Cornucopia ;
+C.Application TestProgram : $(TESTPROGRAM_SRCS) ;
+
+# Jamfile for TestProgram

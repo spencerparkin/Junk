@@ -1,0 +1,71 @@
+# Jamfile for lua-5.2.1
+
+SubDir SPENCERS_PROJECTS Cornucopia Code lua-5.2.1 ;
+
+LUA_DLL_SRCS =
+	lapi.c
+	lapi.h
+	lauxlib.c
+	lbaselib.c
+	lbitlib.c
+	lcode.c
+	lcode.h
+	lcorolib.c
+	lctype.c
+	lctype.h
+	ldblib.c
+	ldebug.c
+	ldebug.h
+	ldo.c
+	ldo.h
+	ldump.c
+	lfunc.c
+	lfunc.h
+	lgc.c
+	linit.c
+	liolib.c
+	llex.c
+	llex.h
+	llimits.h
+	lmathlib.c
+	lmem.c
+	lmem.h
+	loadlib.c
+	lobject.c
+	lopcodes.c
+	lopcodes.h
+	loslib.c
+	lparser.c
+	lparser.h
+	lstate.c
+	lstate.h
+	lstring.c
+	lstring.h
+	lstrlib.c
+	ltable.c
+	ltable.h
+	ltablib.c
+	ltm.c
+	ltm.h
+	lua.h
+	lua.hpp
+	luaconf.h
+	lualib.h
+	lundump.c
+	lundump.h
+	lvm.c
+	lvm.h
+	lzio.c
+	lzio.h
+;
+
+# We want to build Lua as a DLL and link with it as
+# such so that if Cornucopia is linked with an application
+# that uses Lua, both Cornucopia and that application can
+# share the Lua virtual machine.
+
+C.OutputPath Lua : ../../Build ;
+C.Defines Lua : LUADLL_EXPORTS LUA_BUILD_AS_DLL _CRC_SECURE_NO_WARNINGS ;
+C.Library Lua : $(LUA_DLL_SRCS) : shared ;
+
+# Jamfile for lua-5.2.1

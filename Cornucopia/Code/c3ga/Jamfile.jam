@@ -1,0 +1,16 @@
+# Jamfile for c3ga
+
+SubDir SPENCERS_PROJECTS Cornucopia Code c3ga ;
+
+C3GA_SRCS =
+	c3ga.cpp
+	c3ga.h
+	c3ga_parse_mv.cpp
+	c3ga_util.cpp
+	c3ga_util.h
+;
+
+C.OutputPath c3ga : ../../Build ;
+C.Library c3ga : $(C3GA_SRCS) ;
+
+# Jamfile for c3ga

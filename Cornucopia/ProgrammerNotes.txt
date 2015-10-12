@@ -1,0 +1,8 @@
+
+Get rid of platform-specific file i/o in favor of platform-independent code.
+
+There should probably be support for units and unit conversions
+that nodes can utilize.  There should also be general support
+for quantization.
+
+Should probably rip-out the silly indexing mechanism and put in the original one.
