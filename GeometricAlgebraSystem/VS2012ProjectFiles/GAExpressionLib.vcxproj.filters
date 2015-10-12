@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\GAExpressionLib\GAExpLibApi.h" />
+    <ClInclude Include="..\GAExpressionLib\List.h" />
+    <ClInclude Include="..\GAExpressionLib\List.hpp" />
+    <ClInclude Include="..\GAExpressionLib\Operand.h" />
+    <ClInclude Include="..\GAExpressionLib\Operation.h" />
+    <ClInclude Include="..\GAExpressionLib\OuterProduct.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\InnerProduct.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\GeometricProduct.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Addition.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\NumericReal.h">
+      <Filter>Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Product.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\SymbolicReal.h">
+      <Filter>Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Scalar.h">
+      <Filter>Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Vector.h">
+      <Filter>Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Manipulator.h" />
+    <ClInclude Include="..\GAExpressionLib\Associator.h">
+      <Filter>Manipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Distributor.h">
+      <Filter>Manipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\Compressor.h">
+      <Filter>Manipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GAExpressionLib\BilinearForm.h" />
+    <ClInclude Include="..\GAExpressionLib\ScaledSymbol.h" />
+    <ClInclude Include="..\GAExpressionLib\Expander.h">
+      <Filter>Manipulators</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\GAExpressionLib\Operand.cpp" />
+    <ClCompile Include="..\GAExpressionLib\Operation.cpp" />
+    <ClCompile Include="..\GAExpressionLib\Addition.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\GeometricProduct.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\OuterProduct.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\InnerProduct.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\NumericReal.cpp">
+      <Filter>Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Product.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Scalar.cpp">
+      <Filter>Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\SymbolicReal.cpp">
+      <Filter>Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Vector.cpp">
+      <Filter>Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Manipulator.cpp" />
+    <ClCompile Include="..\GAExpressionLib\Associator.cpp">
+      <Filter>Manipulators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Distributor.cpp">
+      <Filter>Manipulators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\Compressor.cpp">
+      <Filter>Manipulators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GAExpressionLib\BilinearForm.cpp" />
+    <ClCompile Include="..\GAExpressionLib\ScaledSymbol.cpp" />
+    <ClCompile Include="..\GAExpressionLib\Expander.cpp">
+      <Filter>Manipulators</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Operations">
+      <UniqueIdentifier>{8bd0ac1c-23de-4a8f-af55-4d41e12d65e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Operands">
+      <UniqueIdentifier>{8481e0a7-eeb4-4186-89db-cd1f3e2623d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manipulators">
+      <UniqueIdentifier>{e49b18c1-a447-4dcc-846f-98c210decbf9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

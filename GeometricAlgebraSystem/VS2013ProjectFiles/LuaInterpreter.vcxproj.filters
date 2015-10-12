@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\LuaInterpreter\LuaInterpreter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\LuaInterpreter\LuaInterpreter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{30bf259e-9109-48d6-9dd1-aa827367fe88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\LuaInterpreter\TestAssociation.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestDistribution.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestBilinearForm.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\Signature.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestConformalPoint.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestExpansion.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestInnerProductIdentities.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestVersorExpansion.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\LuaInterpreter\TestVersorAndBladeExpansion.lua">
+      <Filter>Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

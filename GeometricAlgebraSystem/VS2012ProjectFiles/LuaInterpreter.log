@@ -1,0 +1,9 @@
+﻿Build started 9/11/2015 10:31:20 AM.
+     1>Project "C:\GeometricAlgebraSystem\VS2012ProjectFiles\LuaInterpreter.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         LuaInterpreter.vcxproj -> C:\GeometricAlgebraSystem\VS2012ProjectFiles\/../Build/LuaInterpreter/Debug\LuaInterpreter.exe
+     1>Done Building Project "C:\GeometricAlgebraSystem\VS2012ProjectFiles\LuaInterpreter.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.03
