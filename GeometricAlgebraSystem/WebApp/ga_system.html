@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>GA System</title>
+		<link rel="stylesheet" href="ga_system.css">
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.14.0/babel.min.js"></script>
+		<script type="text/babel" data-presets="es2017,stage-3" data-plugins="syntax-async-functions,transform-class-properties"></script>
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script type="text/babel" src="ga_system.jsx"></script>
+	</head>
+	<body>
+		<h1>Geometric Algebra System</h1>
+		<center><p><code>Latex rendering powered by <a href="http://www.holoborodko.com/pavel/quicklatex/" target="_blank">QuickLaTeX</a></code></p></center>
+		<div id="ga_results">
+		</div>
+		<input type="text" id="calculator_input" onkeydown="OnCalculatorInputEnterPressed(this)" spellcheck="false">
+		<img id="ajax_wait" src="images/ajax_wait.gif"></img>
+	</body>
+</html>

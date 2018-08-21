@@ -1,2 +1,3 @@
 # GeometricAlgebraSystem
-This is a computer algebra system dedicated to the symbolic and numeric manipulation of GA expressions.
+
+A system for performing symbolic and numeric computations in geometric algebra.
