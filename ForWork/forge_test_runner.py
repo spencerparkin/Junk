@@ -3,6 +3,8 @@
 import time
 import json
 
+from forge_sys.forge_misc.forge_mongo_doc_locker import ForgeMongoDocLocker
+
 class ForgeTestRunner(object):
     # This class is designed to run in the front-end or the back-end.
     # It is also designed to scale horizontally.
@@ -14,22 +16,10 @@ class ForgeTestRunner(object):
         else:
             self.config = config
 
-        self._action_state_handler_map = {
-            'allocating_resources': self._allocate_resources,
-            'running': self._run_test,
-            'deallocating_resources': self._deallocate_resources,
-        }
-
     def run(self):
         while True:
-
             while self._token_found():
-                self._process_state_transition('initial', 'allocating_resources')
-                self._process_state_transition('ready_to_run', 'running')
-                self._process_state_transition('complete', 'deallocating_resources')
-                self._process_state_transition('final', 'deleting')
-                self._process_state_transition('waiting_for_part_2', 'allocating_resources')
-
+                self._process_test_work()
             if config.get('exit_if_token_not_found', False):
                 break
             else:
@@ -42,67 +32,63 @@ class ForgeTestRunner(object):
             test_work = test_work_coll.find({'token': self.config.get('token')})
             return True if test_work is not None else False
 
-    def _process_state_transition(self, rest_state, action_state):
+    def _process_test_work(self):
         with ForgeMongoClient(self.config['mongoserver_tests']) as client:
             tests_database = client['forge_tests']
             test_work_coll = tests_database['test_work']
-            key = {'state': rest_state, 'token': self.config.get('token')}
+            key = {'token': self.config.get('token')}
             test_work = test_work_coll.find_one(key)
             if test_work is not None:
-                update = {'$set': {'state': action_state, 'state_time': datetime.datetime.now()}}
-                key = {'_id': test_work['_id']}
+                update = {'$set': {'captured_by': socket.gethostname(), 'capture_time': datetime.datetime.now()}}
+                key = {'_id': test_work['_id'], 'captured_by': None}
                 result = test_work_coll.update_one(key, update)
-                if result.modified_count == 1:
+                if result.modified_count == 1: # One and only one test runner instance will modify the test work document.
+                    key = {'_id': test_work['_id']}
                     try:
-                        # We are the only instance that transitioned the test work into the action state.
-                        target_state, action_updates = self._action_state_handler_map[action_state](test_work, client)
-
+                        test_work = test_work_coll.find_one(key)
+                        self._process_test_work_internal(test_work, client)
                     except Exception as ex:
-                        # If an exception occurred, move us back to the rest state.
-                        update = {
-                            '$set': {
-                                'state': rest_state,
-                                'state_time': datetime.datetime.now(),
-                                'state_exception': str(ex)
-                            }
-                        }
+                        update = {'$set': {'captured_by': None, 'capture_time': None, 'test_runner_exception': str(ex)}}
                         test_work_coll.update_one(key, update)
-
                     else:
-                        # If an exception did not occur, move us to the target state.
-                        if target_state is not None:
-                            update = {
-                                '$set': {
-                                    **action_updates,
-                                    'state': target_state,
-                                    'state_time': datetime.datetime.now(),
-                                    'state_exception': None
-                                }
-                            }
-                            test_work_coll.update_one(key, update)
-                        else:
-                            test_work_coll.delete_one(key)
+                        test_work_coll.delete_one(key)
 
-    def _allocate_resources(self, test_work, client):
+    def _process_test_work_internal(self, test_work, client):
 
-        #...
-        # if we fail to allocate resources, then we throw an exception
-        with self._lock_document(host_doc, hosts_coll, client):
-            pass
+        # Find a host against which to run the test.
+        hosts_coll_name, host_doc_id = self._find_host_for_test_work(test_work, client)
+        hosts_coll = client['forge_servers'][hosts_coll_name]
 
-        return 'ready_to_run', {}
+        # Allocate resources used by the test.  To prevent resource leaking,
+        # every kind of resource should have a time-out.
+        resource_list = self._determine_resource_requirements_of_test_work(test_work)
+        with ForgeMongoDocLocker(hosts_coll, host_doc_id) as host_doc:
+            if not all([resource.can_be_used(host_doc) for resource in resource_list]):
+                raise Exception('Cannot allocate all needed resources for test work at this time.')
+            for resource in resource_list:
+                resource.allocate(hosts_coll, host_doc)
 
-    def _deallocate_resources(self, test_work, client):
+        try:
+            self._run_test(test_work)
 
-        with self._lock_document(host_doc, hosts_coll, client):
-            pass
+        finally:
 
-        if test_work.get('needs_part_2', False):
-            return 'waiting_for_part_2', {}
-        else:
-            return 'final', {}
+            # Deallocate resources used by the test.
+            with ForgeMongoDocLocker(hosts_coll, host_doc_id) as host_doc:
+                for resource in resource_list:
+                    resource.deallocate(hosts_coll, host_doc)
+
+    def _find_host_for_test_work(self, test_work, client):
+        pass
+        # Raise exception if we don't find a host that's ready.
+
+    def _determine_resource_requirements_of_test_work(self, test_work):
+        pass
 
     def _run_test(self, test_work, client):
+        pass
+
+    def _fabricate_test_work(self):
         pass
 
 if __name__ == '__main__':
