@@ -1,0 +1,21 @@
+Tom,
+
+I've copied Steven, Eric, Brad and Bruce on this e-mail, hoping they'll advocate my reasoning here (or perhaps tell me why I'm wrong.)  Let me come right to the point...
+
+After a great deal of thought and, yes, soul searching, I believe we're going about solving the resource contention issue the wrong way.  Specifically, I don't think we should be tracking the allocation and deallocation of test resources at all.  Why?  There are two compelling reasons: 1) they're already being tracked in reality, and 2) our tracking, as has been proven time and again, is not always a reflection of this reality.  In other words, our book-keeping and reality become out-of-sync, and then we get into trouble!
+
+For example, Rob has a bug where our framework thinks a visit is not in use, but it still is in use in reality, because the test failed to close the visit.  What's happened here is that our tracking of visits has become misaligned with 360's tracking of visits.  If we want to know if a visit is still in use or not, we should simply ask the 360 host.  Anyhow, to overcome this problem, Rich (and everyone else, by the way) is simply making sure that every 360 test that uses a visit generates a unique visit for that test.  Problem solved.
+
+Another example is CRS licenses.  The CRS hosts track their own licenses, so why are we tracking them?  When we try to run a UI test against a CRS host, we should, before handing control to the entry-point routine, detect whether we have successfully acquired a CRS license.  If we have, let the test run.  If we haven't, just defer the test.  That's easy to do.  Problem solved.
+
+How about WebCvConfig tests?  I think there are at least 2 ways to solve the problem with these kinds of tests.  First, we could queue them for one and only one of our test runners so that they only run one at a time.  Second, (and I think this is a cleaner solution), we should detect the case where a test fails to use WebCvConfig because it is already in use, and in that case, defer the test.
+
+Back to 360 visits.  Suppose several 360 tests use the same visit.  Before running one of these tests, make a query to the 360 server to see if the visit used by the test is already open.  If it is, defer the test.  If it isn't, try to run the test.  Now we have a race condition, but it's rare.  If in the course of running the test, we find that the visit is already open, we should cancel and defer the test.
+
+The key here is that in all cases, we're looking to reality as our source of truth, not our own attempt to mirror reality with our own error-prone book-keeping of test resource allocation/deallocation.
+
+Unless you can convince me otherwise, I really think we should track the resource requirements of tests where necessary (such as 360 visits used by a test), but we should not try to book-keep those resources and then schedule the running of tests based on that faulty book-keeping.  Rather, I think we should know how to detect when a test needs to be deferred.  The tests will get done just as fast.
+
+If a test is deffered too many times, for whatever reason, then we can fail the test, because something is wrong.
+
+Admittedly, I was originally against Rob's retry-work, but whether Rob realized it or not, I believe his idea of retry-work is actually the best way to handle resource contention.  My implementation would not generate rety-work, but simply recycle the original test-work document until it can finally be consumed by a test runner.
