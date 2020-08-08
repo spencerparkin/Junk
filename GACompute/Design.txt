@@ -1,6 +1,0 @@
-GACompute has a simple software design, broken down into 3 components:
-  1) a dynamic-link library housing the GACompute API,
-  2) a Lua module that exposes all GACompute functionality through the Lua language, and
-  3) a simple wxWidgets program that embeds a Lua VM and provides an interface to Lua input/output.
-  
-The GACompute library and API can be used by itself without Lua.  The Lua module, however, provides a convenient way to use GACompute in a scripting language.  Elements of a geometric algebra will be exposed in Lua as a new type of object that overloads Lua operators to perform the various products of GA.  The wxWidgets program will provide both a testing ground for the GACompute library, and a long-term practical solution for using GACompute in real-world applications.

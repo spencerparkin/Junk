@@ -1,0 +1,72 @@
+
+
+How does an adder do subtraction?
+=================================
+
+Consider the following problems...
+
+  3 + 5 = 8
+ -3 + 5 = 2
+  3 - 5 = -2
+ -3 - 5 = -8
+
+The first of these can be done with
+the ripple-carry adder.  But can it
+do the last three?  Yes, it can!
+Consider the 4-bit ripple-carry adder.
+If we're working with 4-bit unsigned
+numbers, then the range of values we
+can represent is 0 through 2^4-1 = 15.
+Using 2's compliment notation, the range
+of values we can represent for 4-bit
+signed numbers is -2^3 through 2^3-1.
+(Use circle diagram to make this clear.)
+Whether a 4-bit number is signed or
+unsigned is simply a matter of interpretation.
+Note that the adder doesn't care if
+we're working with signed or unsigned
+numbers.  And that's nice because then
+it will work with both types.  Now consider
+the addition problems above.
+
+  -3 + 5 = (-3 + 2^4) + 5   (mod 2^4)
+         = 13 + 5           (mod 2^4)
+         = 18               (mod 2^4)
+         = 18 - 2^4         (mod 2^4)
+         = 2                (mod 2^4)
+
+  -(0011) + (0101) = (1101) + (0101)
+                   = (10010)
+                   = (10010) - (10000)
+                   = (0010)           // threw away the final carry.
+
+   3 - 5 = 3 + (-5 + 2^4)   (mod 2^4)
+         = 3 + 11           (mod 2^4)
+         = 14               (mod 2^4)
+         = 14 - 2^3         (mod 2^4)
+         = -2               (mod 2^4)
+
+   (0011) - (0101) = (0011) + (1011)
+                   = (1110)           // Leading bit is 1.  So it's negative.
+                   = (1110) - (10000)
+                   = -(0010)
+
+  -3 - 5 = (-3 + 2^4) + (-5 + 2^4)   (mod 2^4)
+         = 13 + 11                   (mod 2^4)
+         = 24                        (mod 2^4)
+         = 24 - 2^4                  (mod 2^4)
+         = 8                         (mod 2^4)
+         = 8 - 2^4                   (mod 2^4)
+         = -8                        (mod 2^4)
+
+  -(0011) - (0101) = (1101) + (1011)
+                   = (11000)
+                   = (11000) - (10000)  // thre away final carry.
+                   = (1000)          // Leading bit is 1.  So it's negative.
+                   = (1000) - (10000)
+                   = -(1000)
+
+Here is a quick way to find the 2's compliment.
+
+  ((****) ^ (1111)) + (0001) = 2's compliment
+

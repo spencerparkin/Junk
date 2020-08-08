@@ -1,0 +1,17 @@
+# Makefile for librisclib.a library archive file
+
+LIB = ../lib/librisclib.a
+SRC = read.S write.S string.S convert.S data.S 
+OBJ = $(SRC:.S=.o)
+
+all: $(LIB)
+
+$(LIB): $(OBJ)
+	ar -cru $(LIB) $(OBJ)
+
+%.o: %.S
+	gcc -c $< -o $@ -I../include
+
+clean:
+	rm -f $(OBJ)
+

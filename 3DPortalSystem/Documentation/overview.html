@@ -1,0 +1,196 @@
+<html>
+<head><title>A brief Overview of the Project</title></head>
+<body>
+<h1>A brief Overview of the Project</h1>
+The program consists of 5 significant "systems" (if you will).  They are...<p>
+<li>The graph system,
+<li>The entity system,
+<li>The artifact system, 
+<li>The tether system, and
+<li>The texture management system.
+
+<p>Other, less signifcant, parts of the software are
+implimented in many different modules that are not
+worth mentioning here.  (The program as a whole is
+considered to be a portal system for reasons which
+will hopefully become apparent.)  A brief explination of
+each of these systems now follows.<p>
+
+<h2>The graph system</h2>
+
+The program uses a graph to represent the scene.
+The nodes of this graph are called cells (and may
+be thought of as rooms), and the edges are called
+portals (which may be thought of as door-ways).
+A cell consists of a list of surfaces which
+topologically form a
+convex polygon in the XY-plane.  (Surfaces are
+described by a line segment in the XY-plane, but
+are drawn from a 3 dimensional perspective as 
+rectangular polygons by
+extruding them along the Z-axis.)
+The basic types of surfaces are walls and portals.  The graph is
+directed, and as such, allows bidirectional travel between
+adjacent cells by requiring two directed edges
+for every logical edge or edge in the corresponding
+undirected graph of the actual scene graph generated
+by the program.  The direction of an edge indicates
+the ability to travel from the cell containing the edge
+to the adjacent cell pointed to by the edge.  More information
+about how the graph is internally represented and
+processed is given <a href="graph_data.html">here</a> and
+<a href="graph_algo.html">here</a>, respectively.  But
+don't read that yet until you've finished this page.<p>
+
+In the terminology used by the program code, an
+edge is synonymous with a portal, and a portal is
+a type of surface.  A "Surface" class is provided that
+impliments the support for visibility testing
+against given FOVIs (Fields Of VIsion).  Then the "Wall" and
+"Portal" classes are derived from this, and provide
+their own virtual overloads of the methods that
+handle collision detection and rendering.  Walls are
+obviously written to be coporial objects, while
+portals allow entities to pass through them.  Walls
+render their surface geometry, while portals recursively call
+the scene rendering algorithm into the adjacent
+cell after having properly clipped the current FOVI
+against what part of it
+intersected the portal's boundry.  The complete list
+of surfaces defined by the program is...<p>
+
+<li>Walls -- These are drawn with a texture if visible.
+The wall texture may stretch or wrap, and the wall geometry
+may be clipped against the current field of vision.
+<li>Wall Switches -- These are a type of wall with two
+alternating textures.  The textures are swapped when an entity
+acts on this type of surface.  One texture is usually of an
+on switch, while the other is of an off switch.
+<li>Portals -- These indicate adjacent cells and the
+window with which they are visible from the occupied cell.
+<li>Doors -- These are a special type of portal object
+that act like portals in the open state, and act like
+walls in the closed state.
+
+<h2>The entity system</h2>
+
+An entity is an agent (human or computer controlled)
+that is capable of traversing the
+scene graph and has built into it the functionality of collision
+detection and VED (Visible Entity Determination).
+Objects that derive from the "Entity"
+class thereby inherit this functionality.  Entity
+methods are provided for repositioning and reorienting
+the entity that hide the details of confining the
+entity to the currently occupied cell, or propagating
+the entity to an adjacent cell if a portal boundry
+is crossed.  Entity's also have the ability to
+see other entity's through the use of the same
+basic algorithm employed by the VSD code
+used to render the scene from
+the camera's perspective.  The types of entities
+defined in the program include...<p>
+
+<li>The camera -- This is used to draw the scene from various
+locations and angles in the XY-plane.
+<li>Spencer -- This is an entity representing the main
+character who goes around manipulating the environment.
+<li>Snowman -- This is an annoying entity that homes in
+on Spencer entities when visible.
+<li>Blob -- This is yet another annoying entity that persistantly
+homes in on Spencer entities after once being visible.
+This is achieved through the use of the tether system.
+Two good stratagies for dealing with blobs are confining
+them in rooms (they are not programmed to open doors) and
+using a teleport.
+
+<p>Only one instance of the "Spencer" class is ever
+instantiated.  This is also the case with the "Camera"
+class.  However, many instances of computer controlled
+classes, ("Blob" objects and "Snowman" objects), are
+created, and could be programmed to do anything a
+user controlled entity might do, since they share
+the same methods of the "Entity" base class.
+
+<h2>The artifact system</h2>
+
+Aftifacts are collectable objects that reside in cells
+of the scene graph.  They may be collected by entities
+and used on surfaces, entities, or other artifacts
+if programmed to do so.  The types of atifacts defined
+in the program are...<p>
+
+<li>Keys -- These are used to unlock doors.
+<li>Healthpacks -- These are used to rejuvinate health.
+<li>Orbs -- These are collected at the end of a level.
+<li>Teleports -- These warp an entity from somewhere in
+the scene graph to somewhere else in the scene graph.
+Doing so destroys any established tethers connected to
+the given entity.  Tethers are explained in the next section below.
+
+<p>Unlike entities, artifacts do not traverse the
+scene graph.  They just sit around in their initially
+occupied cell, waiting to be collected or acted upon.
+They rotate in space or do some other attention grabbing
+animation.
+
+<h2>The tether system</h2>
+
+Tethers are used to create a logical and determinable
+path through the scene graph from one entity to
+another.  It is internally represented by a list of
+cells assumed to be adjacent.  This assumption is
+justified by the tether's creation and maintenance
+algorithms.  A path consisting of a sequence of portals 
+through the scene graph may then be determined by the
+tether's cell list for use by the program.  Keeping a cell
+list instead of a sequence of portals was chosen for
+implimentation specific reasons, but suffice it
+to say, it is less information to keep track of and
+easier to maintain than a bunch of portals in a directed graph
+supporting bidirection travel between any two adjacent nodes.
+Tethers are maintained by updating all tethers connected to an
+entity when it generates a cell propagation.  (That is,
+when an entity crosses a portal boundry, thereby leaving
+one cell and entering another.)  At this point
+a cell is either inserted or removed from the tether's
+cell list at one end of it.  Notice that this list is being used as
+a double-ended queue, since one end of it is processed
+by one of the two entities connected by the tether.
+The tether system is smart enough to detect cycles in
+the tether path and remove them as soon as they are created.
+This does not insure that the shortest path between the
+two given entities is always maintained, but it does prevent
+paths from becomming infinitely long in a
+scene graph that may contain cycles.  Initially created
+paths are guarenteed to be the shortest, however, by the
+algorithm that establishes them between two given entities.
+More on this can be find <a href="graph_algo.html">here</a>.
+
+<h2>The texture management system.</h2>
+
+This is a big part of the program.  I originally did not plan
+on providing texture support.  But in playing around with it,
+I realized that it added too much to the scene to not be used.
+Without textures, it's much-much easier to see that this
+program just displays a bunch of boringly placed polygons.
+The texture manager
+is responsible for the loading, managing, and unloading of
+texture memory and providing a convenient way to map textures
+to polygons.  The texture manager also keeps track of
+texture usage for calculating texture priority, and midigates
+texture resources.  That is, multiple requests for the same
+texture memory does not create multiple copies of the same
+texture objects.  Rather, texture resources are shared by
+clients of the texture manager.  When it is indicated by each and every one
+of these clients that a given texture object is no longer
+needed, its resources are freed.  The texture manager was
+written with the idea of supporting multiple image formats
+in mind, but currently the only one support is 24-bit TIF files.
+Support for other image formats is easy to add to the texture
+manager, if needed.<p>
+
+<a href="index.html">Return...</a>
+
+</body>
+</html>

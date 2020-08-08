@@ -26,3 +26,21 @@
 *.exe
 *.out
 *.app
+
+# Blah
+*.pdf
+*.sbr
+*.opt
+*.ncb
+Debug/
+Release/
+*.dsp
+.vs/
+*.user
+*.suo
+*.sdf
+*.plg
+*.VC.db
+*.log
+*.aux
+*.dvi

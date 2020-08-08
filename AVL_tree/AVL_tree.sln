@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL_tree", "AVL_tree.vcproj", "{5B241A37-7C13-4C66-BFAC-AF2F109F4B55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B241A37-7C13-4C66-BFAC-AF2F109F4B55}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5B241A37-7C13-4C66-BFAC-AF2F109F4B55}.Debug|Win32.Build.0 = Debug|Win32
+		{5B241A37-7C13-4C66-BFAC-AF2F109F4B55}.Release|Win32.ActiveCfg = Release|Win32
+		{5B241A37-7C13-4C66-BFAC-AF2F109F4B55}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

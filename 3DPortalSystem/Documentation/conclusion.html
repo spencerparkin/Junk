@@ -1,0 +1,55 @@
+<html>
+<head><title>Concluding Remarks</title></head>
+<body>
+<h1>Concluding Remarks</h1>
+
+The problems of visible surface determination and collision detection/resolution
+are perhaps the two hardest and most prominant in computer graphics programming,
+and they are certainly related to one another.  In the case of this program,
+the same data-structure was used by the algorithms that performed each of
+these functions.  While the program addmittedly has many glitches,
+(and is quite frankly a peice of junk), I believe I can say that the
+program was a success for at least three reasons.
+First, the mathematical theory developped for FOVI objects 
+which was put into practice here was made procise enough to
+let the program successfully perform VSD.  The program would
+otherwise have been unusuable on slow machines such as my own.
+Second, there was a lot of thought put into the mathematics of
+2D collision detection, which ideas may extend to 3D collision detection.
+Lastly, and generally, and most importantly, this program hopefully
+serves as a stepping stone to more advanced programs in computer graphics,
+which, in my opinion, are the most interesting and fun programs to write.
+
+<h2>The next version of this program.</h2>
+
+The next program is even more ambitious, but the lessons I've
+learned here in writing this program, I believe, will be invaluable,
+and will make the program a possibility.
+The next program will be built on a thoroughly tested and proven
+foundation of mathematical routines to perform intersection tests
+between fundamental geometrical objects and routines that can resolve those
+collisions.  These routines would be the basis for a collision
+detection engine built around the idea of the spacial partitioning
+matrix.  Some sort of modeling software must be employed to rapidly
+produce and export geometrical data that the program or a program
+in a tool-chain can process before rendering it.
+Ideally I would be able to find one on the internet, or if not, right
+a primitive program that will do the job.<p>
+
+The next program will not be limited topologicaly to two dimensions.
+It will allow a character to traverse a world with inclined planes, drop-offs,
+bridges, tunnels, etc.  I'll probably switch to an out-door environment and
+deal less rigorously with VSD.  Back-face
+culling and the Z-buffer will do fine, and something simple could be done to test
+for and determine if large portions of the scene are visible to the
+camera or not.  The main focus of this program would be to demonstrate
+perfect collision detection and resolution with all surfaces in a
+gravity environement.  A graph data structure
+might be used on a much larger scale or perhaps a BSP tree to indicate
+which large sections of the scene are visible to the camera from
+general perspectives.</p>
+
+<a href="index.html">Return...</a>
+
+</body>
+</html>

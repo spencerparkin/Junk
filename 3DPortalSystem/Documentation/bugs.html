@@ -1,0 +1,118 @@
+<html>
+<head><title>Known Bugs</title></head>
+<body>
+<h1>Known Bugs</h1>
+There are several known bugs in the project.  The ones that
+I can remember are enumerated here.  <b>Do not read this if you don't have time
+or simply don't want to.</b>  I added this page because I felt it was an important
+peice of documentation of the project.<p>
+
+<h2>Functional Bugs</h2>
+
+<li>The VSD drawing algorithm for the floor and ceiling has some clipping
+bugs in it when a cell is viewed from outside of it.
+<li>Walls and cells too far away may not draw due to round-off error
+when the current field of vision gets clipped too small.
+<li>Some non-visible walls draw due to round-off error when an end-point
+of the wall surface grazes the current field of vision.
+<li>An unwanted cell propagation may occur due to round-off error when an
+end-point of a portal boundry segment grazes the line of motion determined
+by the way-point vector.
+<li>The 3rd person camera flickers every now and then and isn't very
+intelligent in its positioning scheme.
+<li>The rule that cell polygons always be convex was sometimes violated in map design
+and this came back to bite me.  Note that this is a bug in the data,
+not in the program logic.
+<li>Texture coordinates for the floor were imporperly calculated.
+<li>There are painfully obviouse alpha blending issues agrivated by the
+draw order and depth buffer testing.
+<li>Wall clipping doesn't work in all situations.
+<li>The floor and ceiling textures need mip-mapping.
+<li>Another map data bug is arrises when an already drawn cell is
+visible from another perspective.  This arrises only with spacial paradoxes
+since in a sane world, the cell flags get reset before a cell is
+re-entered recursively from another perspective.  If in an in-sane world an
+attempt is made to re-enter a cell recursively, when it is already somewhere
+in the call stack, then the attempt will fail due to a cell-flag check.
+This phenomenon can easily be observed in the big room with pillars on level 2.
+<li>There is the potential for an infinite loop in the collision detection
+code.  Of course, I put in a counter so that it bails out after so many iterations
+of the loop.  But this is certainly a bug.  The problem simply arrises when
+an object is too fat to fit between two surfaces.  This case should be detected and
+dealt with differently.
+
+<p>I know there are many more bugs than this.  But that is the list for now.
+
+<h2>Technical Design Bugs</h2>
+
+<p>There are also many design issues with the project.  These are things
+I would have done differently had I forseen the problems that did
+arrise as a result of my design choices from the beginning.
+I'll go over a few here that I can remember.
+<li>Carving the scene into many cells and then using each to manage
+a group of polygons in a local coordinate system became unmanagable and
+completely impractical.  The overhead and obfuscation of the code
+in coordinate system conversions
+alone is enough to see it as rediculous.  A better solution would be to
+store all geometries in the global coordinate system.  Then something like
+a spacial partitioning matrix might be employed to manage objects on a
+local level, and aide in expediting efficient collision detection.  Something
+else needs to be thought of in order to solve the problem of VSD.
+I believe that in pratice, the graphics display hardware
+is just so fast that professional developers can get away with drawing
+many things that aren't seen.  Research the use of BSP trees.
+<li>It might not have been so wise to impliment the camera as an entity.
+The idea was that by making the camera a type of entity it would inhereit
+all of the functionality required to navigate the scene graph and thereby
+automatically handle collision detection issues with the camera.  This
+actually happened to work out great, but by being an entity itself, this
+also restricted the camera too in what it could do.  But this may have
+more to do with my entity implimentation, and less with the idea of making
+the camera a type of entity.  An obvious flaw in the camera design leads
+us back to the first design flaw mentioned, and that is its only option of using tethers
+to locate its position with respect to the subject entity (the entity
+being filmed by the camera), because of the use of such a heavily
+partitioned scene graph.  This and the
+resulting ubiquitous local coordinate systems
+made the camera orientation code unnecessarily complex.
+<li>The scheme for describing maps that the map loader could process to
+allocate and link the scene graph wasn't all that bad of an idea, but
+still impratical without a peice of map designing software to aide in
+development.  It would have been a good idea to think through the file
+format of a map and write a map designer for the program.  Had I spent the
+time to do this, it would have saved me a lot more time in the long run.
+Also, much larger and more ellaborate maps may have been created.  Another
+bonus is that the map designer could have done much of the preprocessing
+of the static map surfaces so that the game program wouldn't have to do it during
+loading of the map.  This
+includes making sure all polygon vertices are ordered correctly, calculating
+polygon surface normals, calculating polygon texture coordinates, etc.
+The environement is mostly static.  Something could have been thought of
+in dealing with the few dynamic components of the environment that there were.
+<li>A terrible design flaw is found in the implimentation of doors.
+There are two door objects for every logical door.  The logical door state
+was kept by both objects and had to be mirrored between them when it was
+changed via any one of the objects.  So they had to be aware of one another,
+but the bigger bummer is the rediculous redundancy that needed to be maintained
+and the potential for bugs it created.  A fix to this design flaw, I think,
+is a fix to the internal representation of the scene graph so that there
+is only one edge between any pair of adjacent cells.  This, however, does present
+some problems of its own which, for brevity, I will neglect to mention here.
+<li>Dynamic cell mode made the program unnecessarily complex.  In future versions
+of a program like this, I think that the idea of providing the feature of
+spacial paradoxes can be done away with.  In that case, there is no need to
+complicate things or make the program slower with dynamic cell position and
+orientation calculations.  These had to be performed, not only in the draw code,
+but any algorithm operating upon the scene graph that needed to process vertex data.
+<li>It may have been a good idea to create the construct object as an
+abstract base class for all objects in the scene graph.  There really is a
+good reason for it not being so in the program's current implimentation.
+It's because the construct object is used strictly for describing a map that
+has yet to be realized by the program.  But having a common base class for
+all constructs in the program might have aided in the object oriented design
+of the program and the algorithms it employed.<p>
+
+<a href="index.html">Return...</a>
+
+</body>
+</html>

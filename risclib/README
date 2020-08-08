@@ -1,0 +1,23 @@
+
+This directory contains a simple and far
+from complete library of functions for
+RISC assembly language programmers and
+proposed solutions to all exam questions
+in the book: Introduction to RISC Assembly Language,
+by John Waldron.  I've done my best to solve
+each exam question to fit all test cases.  These
+solutions are implemented as real-world running
+programs.  The code will not work with SPIM.  Also note
+that these programs are non-shared and don't include
+the appropriate pseudo-ops for gdb.  Oops!  The
+exams along with the test programs provided
+demonstrate the usage of the library.
+
+The library was originally compiled on a
+PlayStation2 MIPS R5900 (EE Core).  With luck,
+it should compile on your MIPS platform.  Just
+type 'make'.  Then, to build the exams and tests,
+type 'make examples'.
+
+Cheers,
+			--Spencer T. Parkin (spencerparkin@mail.weber.edu)

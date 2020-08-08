@@ -1,0 +1,125 @@
+<html>
+<head><title>Brief Source File Explinations</title></head>
+<body>
+<h1>Brief Source File Explinations</h1>
+What follows is a brief explination of
+each source code module.  It's meant more as
+a reference than anything else.  <b>Skip this if
+you don't have time to read it.</b></p>
+<li>artifact.cpp -- Impliments base class functionality for objects of type "Artifact".
+<li>blob.cpp -- Impliments the "Blob" entity.
+This entity uses tethers to track its target.
+<li>buffer.cpp -- Provides a simple buffer
+facility for inserting and removing data
+for arrays of pointers.  The data structure
+and algorithms are very slow in theory, but
+very fast in practice because the buffers
+are all very tiny.
+<li>camera.cpp -- Impliments the camera entity.
+This is also where the viewing matrix is
+setup and the scene rendering algorithm begins.
+<li>cell.cpp -- Impliments the "Cell" object.
+This is the basic element or node of the scene
+graph.  A part of the indirectly recursive
+scene drawing algorithm can be found here.
+<li>door.cpp -- Impliments doors between
+adjacent cells.  Doors animate when they open
+and close.
+<li>fovi.cpp -- This module houses all of the
+mathematics associated with FOVIs (fields of vision)
+in the XY-plane.
+These fundamental geometrical objects, and
+the operations that may be performed upon them,
+form the critical foundation upon which the
+visible surface determination algorithm is built.
+This algorithm is used to draw the visible parts
+of the elements of the scene graph.
+<li>healthpack.cpp -- Impliments the health-pack
+artifacts which may be used once by entities
+to rejuvinate their health.
+<li>hud.cpp -- This module is responsible for
+rendering the heads-up-display for a given
+entity.
+<li>key.cpp -- Impliments the key artifact.
+These can be collected by entities and used
+to open specific doors.
+<li>levelX.cpp -- These files (X=1,2,3,4) define
+the 4 level maps stored as arrays of map constructs.
+<li>line.cpp -- This file, like fovi.cpp, is a
+very important file.  It houses all of the
+mathematics associated with line-segments in
+the XY-plane.  Much of the math used
+by the collision detection/resolution code
+is in this file.  Math operations involving
+tests and operations between lines and FOVIs
+are put here and also in fovi.cpp as well,
+depending on which has larger context.
+<li>LL.cpp -- This file provides support for
+quick and limited, doubly-linked lists, which
+are used in various parts of the program.
+I didn't need anything fancy.  I just needed
+what little I wrote in this file.
+<li>main.cpp -- This module houses the main
+subroutine (the starting point of the program).
+It deals mostly with GLUT and the user interface
+programming, which is keyed to a given entity,
+which is always the instance of the "Spencer"
+entity.
+<li>map.cpp -- This file contains the map
+loader code.  It is responsible for building
+the scene graph data structure, and tairing
+it down at end-of-level.
+<li>orb.cpp -- Impliments the orb artifact.
+These are collected by entities at end-of-level
+and to trigger end-of-level.
+<li>portal.cpp -- Impliments the portal surface.
+These are the edges of the scene graph.  Parts
+of the indirectly recursive drawing algorithm
+can be found here, as well as how the FOVI
+clipping takes place.
+<li>random.cpp -- Provides simple routines
+for generating random numbers.  The option to
+provide a specific seed is nice for bug
+reproduction.
+<li>snowman.cpp -- Impliments the snow-man
+entity.  These entities are programmed to
+track a preset target when visible.
+<li>spencer.cpp -- Impliments the spencer
+entity.  Only once instance is ever
+instantiated.  This entity is controlled by
+the user.
+<li>surface.cpp -- Impliments the "Surface"
+base class object.  These are the fundamental
+drawable objects of the scene graph, and whose
+visibility is easily determinable.  Therefore,
+so is the visibility of all the types of
+objects derived from
+this class that inherit this functionality.
+<li>switch.cpp -- Impliments the wall switches.
+These may be switched on/off by entities.
+<li>teleport.cpp -- Impliments teleports.
+These appear as circular disks on floors
+representing a telepad.  Only one of these
+appears in level3, I believe.  They teleport
+an entity acting upon it from one cell to
+another.
+<li>tether.cpp -- Provides a way to keep
+track of a path through the scene graph
+connecting two given entities.  This is
+used by the 3rd person camera and snow men.
+<li>texture.cpp -- This module provides
+support for loading and managing texture data,
+as well as provides convenience routines for
+making applying those textures to polygons
+easier to do.
+<li>wall.cpp -- Impliments "Wall" objects
+which are types of surfaces.  The major goal
+of the 3D portal system is to determine which
+walls are visible and which are not when
+drawing the scene.<p>
+
+Whew!  That's it!<p>
+
+<a href="index.html">Return...</a>
+</body>
+</html>

@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{Interpolations\\in\\Geometric Algebra}
+\author{Spencer Parkin}
+\addtolength{\oddsidemargin}{-.575in}
+\addtolength{\evensidemargin}{-.575in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-.575in}
+\addtolength{\textheight}{1.25in}
+\begin{document}
+\maketitle
+
+\newcommand{\V}{\mathbb{V}}
+
+\section*{Linear Interpolations of Vectors}
+
+Given $a,b\in\V$, we seek a reasonable way to
+interpolate between them.  By this we mean
+that if we're given a real value $0\leq t\leq 1$,
+then we want to find a vector having the percentage
+$100(1-t)$ of the vector $a$'s charactristics, and
+the percentage $100t$ of the vector $b$'s characteristics.
+Born from this idea is the linear interpolation, given
+as simply a weighted average of the two vectors.
+\begin{equation*}
+\mbox{lerp}(a,b,t) = a(1-t)+bt = a+(b-a)t
+\end{equation*}
+From this it is easy to see that an interpolated vector
+points along the line between the vectors $a$ and $b$.
+While for some appliations this may be desired, for others
+this presents a few problems.  To begin with, we may find
+it unacceptable that the rate of change in angle between
+the interpolated vector and one of the vectors $a$ or $b$
+is non-linear with respect to a change in $t$.  We may also
+find it undesirable for the length of the interpolated
+vector to very with $t$.
+These attributes of the linear interpolation motivate us to
+find the spherical linear interpolation.
+
+\section*{Spherical Linear Interpolations of Vectors}
+
+Given a pair of linearly independent vectors $a,b\in\V$, each
+of unit length, we wish to uniformly interpolate between them along
+the shortest arc of the unit sphere connecting
+the tips of $a$ and $b$ by the normalized index $0\leq t\leq 1$.  Notice that
+such an arc exists by our requirement that $a$ and $b$ are not parallel to
+one another.  Using what we know about rotors, it is easy to
+construct the desired interpolation.  We begin by constructing
+the rotor that will rotation $a$ toward $b$ so that the ratio
+of the angle made between the interpolated vector and $a$ with
+the angle made between $a$ and $b$ is exactly $t$.  The desired
+rotor is given by
+\begin{equation*}
+R(a,b,t) = \exp\left(-\frac{a\wedge b}{|a\wedge b|}(t\theta/2)\right),
+\end{equation*}
+where $\theta$ is the angle made between $a$ and $b$.
+Here we have chosen the proper plane of rotation using the
+blade $a\wedge b$, and then rescaled it to be of a magnitude
+equal to half the desired angle of rotation.  The sign of
+the blade is chosen so that the equation
+\begin{equation*}
+\mbox{slerp}(a,b,t) = R(a,b,t)a\tilde{R}(a,b,t)
+\end{equation*}
+rotates $a$ in the plane of $a\wedge b$ toward $b$ as required.
+This is also a formula for the desired interpolation.
+Though this formula is ready for use, it is worth seeing if
+we can simplify the expression.  We can begin by leveraging
+the fact that $a\wedge a\wedge b=0$.
+\begin{align*}
+\mbox{slerp}(a,b,t) &=
+\exp\left(-\frac{a\wedge b}{|a\wedge b|}(t\theta/2)\right)a
+\exp\left(\frac{a\wedge b}{|a\wedge b|}(t\theta/2)\right) \\
+ &= \left(\cos(t\theta/2)-\frac{a\wedge b}{|a\wedge b|}\sin(t\theta/2)\right)a
+\left(\cos(t\theta/2)+\frac{a\wedge b}{|a\wedge b|}\sin(t\theta/2)\right) \\
+ &= a\cos^2(t\theta/2)-\frac{a\wedge b}{|a\wedge b|}a\frac{a\wedge b}{|a\wedge b|}\sin^2(t\theta/2) \\
+ &+ \left(a\frac{a\wedge b}{|a\wedge b|}-\frac{a\wedge b}{|a\wedge b|}a\right)\cos(t\theta/2)\sin(t\theta/2) \\
+ &= a(\cos^2(t\theta/2)-\sin^2(t\theta/2))
+ + 2a\frac{a\wedge b}{|a\wedge b|}\cos(t\theta/2)\sin(t\theta/2) \\
+ &= a\cos(t\theta)+a\frac{a\wedge b}{|a\wedge b|}\sin(t\theta) \\
+ &= a\exp\left(\frac{a\wedge b}{|a\wedge b|}t\theta\right)
+\end{align*}
+Here we see that the double-sided transformation law for rotations
+reduces to a single-sided transformation law when the vector to
+be rotated is in the plane of rotation.  From this it is also clear
+that we have been able to express the interpolated vector as
+a linear combination of $a$ and $a\cdot(a\wedge b)/|a\wedge b|$,
+a vector perpedicular to $a$.  The linear combination of
+these vectors consists of $\cos(t\theta)$ and $\sin(t\theta)$,
+making our result geometrically intuitive.  But since this formula requires
+we find one of the basis vectors, it is worth looking for a form
+of our result that expresses the spherical linear interpolation
+as a linear combination of the vectors $a$ and $b$, which we have
+to begin with.
+To this end, we come up with the following matrix equation
+\begin{equation*}
+\left[\begin{array}{cc}\cos(t\theta)&\sin(t\theta)\end{array}\right]
+\left[\begin{array}{c}a\\a\frac{a\wedge b}{|a\wedge b|}\end{array}\right]
+=\left[\begin{array}{cc}f(t)&g(t)\end{array}\right]
+\left[\begin{array}{c}a\\b\end{array}\right],
+\end{equation*}
+where the elements are vectors and matrix multiplication
+is as usual, but using the geometric product instead of scalar multiplication.
+Before we can proceed, we need to put the row-oriented matrices on a common basis.
+It is convenient to use the components of each row-vector
+parallel and perpendicular to $a$.  Our matrix equation then becomes
+\begin{equation*}
+\left[\begin{array}{cc}\cos(t\theta)&\sin(t\theta)\end{array}\right]
+\left[\begin{array}{cc}a&0\\0&a\frac{a\wedge b}{|a\wedge b|}\end{array}\right]
+=\left[\begin{array}{cc}f(t)&g(t)\end{array}\right]
+\left[\begin{array}{cc}a&0\\(a\cdot b)a&-(a\wedge b)a\end{array}\right].
+\end{equation*}
+To see this, recall how the geometric product can be used to find parallel
+and perpendicular vector components.
+\begin{equation*}
+b = ba^2 = (a\cdot b-a\wedge b)a = (a\cdot b)a - (a\wedge b)a
+\end{equation*}
+We now solve for the inverse of the row-oriented matrix on the right-hand side.
+\begin{equation*}
+\left[\begin{array}{cc}a&0\\(a\cdot b)a&-(a\wedge b)a\end{array}\right]
+\left[\begin{array}{cc}w&x\\y&z\end{array}\right] =
+\left[\begin{array}{cc}1&0\\0&1\end{array}\right]
+\end{equation*}
+Clearly, $w=a$ and $x=0$.
+Solving for $y$, we get
+\begin{align*}
+ & (a\cdot b)a^2-(a\wedge b)ay = 0 \\
+\implies& (a\wedge b)ay = a\cdot b \\
+\implies& (a\wedge b)^2y = a(a\wedge b)(a\cdot b) \\
+\implies& y = \frac{a(a\wedge b)(a\cdot b)}{(a\wedge b)^2}.
+\end{align*}
+Solving for $z$, we get
+\begin{align*}
+ & -(a\wedge b)az = 1 \\
+\implies& -(a\wedge b)^2z = a(a\wedge b) \\
+\implies& z = \frac{a(a\wedge b)}{-(a\wedge b)^2}.
+\end{align*}
+Having the inverse of the matrix, we're now ready to solve our original matrix equation.
+\begin{align*}
+\left[\begin{array}{cc}f(t)&g(t)\end{array}\right]
+ &= \left[\begin{array}{cc}\cos(t\theta)&\sin(t\theta)\end{array}\right]
+\left[\begin{array}{cc}a&0\\0&a\frac{a\wedge b}{|a\wedge b|}\end{array}\right]
+\left[\begin{array}{cc}a&0\\\frac{a(a\wedge b)(a\cdot b)}{(a\wedge b)^2}&
+\frac{a(a\wedge b)}{-(a\wedge b)^2}\end{array}\right] \\
+ &= \left[\begin{array}{cc}\cos(t\theta)&\sin(t\theta)\end{array}\right]
+\left[\begin{array}{cc}1&0\\-\frac{a\cdot b}{|a\wedge b|}&\frac{1}{|a\wedge b|}\end{array}\right] \\
+ &= \left[\begin{array}{cc}\cos(t\theta)-\frac{a\cdot b}{|a\wedge b|}\sin(t\theta)
+ & \frac{1}{|a\wedge b|}\sin(t\theta)\end{array}\right]
+\end{align*}
+We can now write $g(t)=\sin(t\theta)/\sin(\theta)$, and we are not
+far from a similar result for $f(t)$.
+\begin{equation*}
+f(t) = \frac{\sin(\theta)\cos(t\theta)-\cos(\theta)\sin(t\theta)}{\sin(\theta)} =
+ \frac{\sin((1-t)\theta)}{\sin(\theta)}
+\end{equation*}
+Our formula for the spherical linear interpolation now becomes
+\begin{equation*}
+\mbox{slerp}(a,b,t) = \frac{a\sin((1-t)\theta)+b\sin(t\theta)}{\sin(\theta)},
+\end{equation*}
+which is a nice result!  It may be more efficient to use
+$f(t)$ in the non-simplified form, since $\cos(\theta)$ and $\sin(\theta)$
+can be computed simultaneously, as can $\cos(t\theta)$ and $\sin(t\theta)$.
+That the interpolated vector is always of unit-length follows directly
+from our construction of the interpolation formula, as do the other properties
+of the interpolation.
+
+Notice that our derivation did not depend on the dimensionality of
+the vectors $a$ and $b$.  This means that our formula works for any
+pair of unit-length, linearly independent vectors pointing to the
+surface of an $n$-dimensional hyper-sphere!
+What we should now investigate is the idea of interpolating between
+blades in general of the same grade.
+
+\section*{Spherical Linear Interpolations of Blades}
+
+For simplicity, we will not invent an interpolation method that
+blends between blades taken from disjoint sub-spaces.
+Even more restrictive, for there to be a spherical linear
+interpolation between two blades, we will require the existence
+of a rotor that transforms one blade into the other.  This is
+the basis for the idea behind the interpolation.  If there exists
+such a rotation, then by performing a partial rotation we can
+generate an interpolation between the two blades.  This is consistent
+with the approach taken to derive the spherical linear interpolation
+between vectors.  This may seem too restrictive at first, but all that
+we're really requiring here is that the two blades in question have
+the same hyper-volume, live in the same sub-space, and have the same grade.
+Recall that the shape of a blade in its hyper-plane is open to interpretation.
+
+Without further delay, let $A$ and $B$ be $n$-blades meeting the said criteria.
+It follows that there exists a rotor $R$ such that $RA\tilde{R}=B$.
+If we can then write
+\begin{equation*}
+A = \prod_{k=1}^n a_k,
+\end{equation*}
+where each of $a_1$ through $a_n$ is a vector making up a geometric product for $A$,
+then we can write
+\begin{equation*}
+B = \tilde{R}\left(\prod_{k=1}^n a_k\right)R = \prod_{k=1}^n \tilde{R}a_k R.
+\end{equation*}
+What this shows is that we can derive our spherical linear interpolation of blades
+in terms of our spherical linear interpolation of vectors.
+Using the rotor-valued function $R(a,b,t)$ defined earlier, we have
+\begin{align*}
+\mbox{slerp}(A,B,t) &= \prod_{k=1}^n R(a_k,\tilde{R}a_kR,t)a_k\tilde{R}(a_k,\tilde{R}a_kR,t) \\
+ &= \prod_{k=1}^n\mbox{slerp}(a_k,\tilde{R}a_kR,t) \\
+ &= \frac{1}{\sin^n(\theta)}\prod_{k=1}^n(a_k\sin((1-t)\theta)+\tilde{R}a_kR\sin(t\theta)),
+\end{align*}
+where $|A||B|\cos(\theta)=A\cdot B$.  I'm not sure what else to say about this.
+It's not a particularly interesting result, but it was worth thinking about.
+
+% show that the interpolated blade has the same magnitude
+
+\section*{Rotor Interpolation}
+
+Traditional interpolation of rotors (or of quaternions) is done
+by interpretating the scalar components as a linear combination
+of a vector basis for a vector on the unit hyper-sphere, and then using the spherical
+linear interpolation method developed earlier.  This has a clear geometric
+meaning with respect to vectors, but what is it doing to the rotor?
+The traditional method does not make this immediately clear.
+Notice that the formula developed for interpolating between blades
+in the previous section is inadequite to the task at hand.  This is
+because we need to be able to interpolate rotor blades of different magnitude.
+Another way to see why is to realize that when a rotor is used to rotate a rotor,
+the rotated rotor still rotates things by the same angle.  Thus the idea of
+incrementaly rotating one rotor into another will not work.
+Before investigating the geometric interpretation of the traditional method, let
+us try to come up with a reasonable interpolation method.
+\begin{equation*}
+\mbox{blend}(R_0,R_1,t) = \exp\left(\mbox{lerp}(|B_0|,|B_1|,t)\;
+\mbox{slerp}\left(\frac{B_0}{|B_0|},\frac{B_1}{|B_1|},t\right)\right)
+\end{equation*}
+This formula lets us attach a clear geometric meaning to the interpolated rotor.
+
+\end{document}

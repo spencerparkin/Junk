@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2AA3652D-C013-4C9B-B683-23C2BBEE2F8F}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <TypeLibraryName>.\Debug/3DPortalSystem.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\glut-3.7.6-bin;OpenGL/include/;TIFF/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/3DPortalSystem.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libtiff.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/3DPortalSystem.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/3DPortalSystem.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/3DPortalSystem.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="artifact.cpp" />
+    <ClCompile Include="blob.cpp" />
+    <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cell.cpp" />
+    <ClCompile Include="door.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="fovi.cpp" />
+    <ClCompile Include="healthpack.cpp" />
+    <ClCompile Include="hud.cpp" />
+    <ClCompile Include="job.cpp" />
+    <ClCompile Include="key.cpp" />
+    <ClCompile Include="level1.cpp" />
+    <ClCompile Include="level2.cpp" />
+    <ClCompile Include="level3.cpp" />
+    <ClCompile Include="level4.cpp" />
+    <ClCompile Include="line.cpp" />
+    <ClCompile Include="LL.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="orb.cpp" />
+    <ClCompile Include="portal.cpp" />
+    <ClCompile Include="random.cpp" />
+    <ClCompile Include="snowman.cpp" />
+    <ClCompile Include="spencer.cpp" />
+    <ClCompile Include="surface.cpp" />
+    <ClCompile Include="switch.cpp" />
+    <ClCompile Include="teleport.cpp" />
+    <ClCompile Include="tether.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="artifact.h" />
+    <ClInclude Include="blob.h" />
+    <ClInclude Include="buffer.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="cell.h" />
+    <ClInclude Include="construct.h" />
+    <ClInclude Include="door.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="fovi.h" />
+    <ClInclude Include="healthpack.h" />
+    <ClInclude Include="hud.h" />
+    <ClInclude Include="job.h" />
+    <ClInclude Include="key.h" />
+    <ClInclude Include="line.h" />
+    <ClInclude Include="LL.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="orb.h" />
+    <ClInclude Include="portal.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="snowman.h" />
+    <ClInclude Include="spencer.h" />
+    <ClInclude Include="surface.h" />
+    <ClInclude Include="switch.h" />
+    <ClInclude Include="teleport.h" />
+    <ClInclude Include="Tether.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="wall.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

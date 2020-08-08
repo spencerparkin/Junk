@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3DPortalSystem", "3DPortalSystem.vcproj", "{2AA3652D-C013-4C9B-B683-23C2BBEE2F8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AA3652D-C013-4C9B-B683-23C2BBEE2F8F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2AA3652D-C013-4C9B-B683-23C2BBEE2F8F}.Debug|Win32.Build.0 = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
