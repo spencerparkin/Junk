@@ -1,0 +1,58 @@
+// ColorRamp.txt -- This is a texture shader that populates a color ramp.
+
+float4 vRed		= float4( 1.0f, 0.0f, 0.0f, 0.0f );
+float4 vGreen	= float4( 0.0f, 1.0f, 0.0f, 0.0f );
+float4 vBlue	= float4( 0.0f, 0.0f, 1.0f, 0.0f );
+float4 vYellow	= float4( 1.0f, 1.0f, 0.0f, 0.0f );
+float4 vCyan	= float4( 0.0f, 1.0f, 1.0f, 0.0f );
+float4 vMagenta	= float4( 1.0f, 0.0f, 1.0f, 0.0f );
+float4 vWhite	= float4( 1.0f, 1.0f, 1.0f, 0.0f );
+
+float4 TextureColorRampFill(
+				float2 vTexCoord : POSITION, 
+				float2 vTexelSize : PSIZE) : COLOR 
+{
+	float4 vColor;
+	float scale;
+	
+	// Yes, this could be done with a for-loop.
+	
+	if( vTexCoord.x < 1.0f / 6.0f )
+	{
+		scale = vTexCoord.x / (1.0f / 6.0f);
+		vColor = vRed + (vGreen - vRed) * scale;
+	}
+	else if( vTexCoord.x < 2.0f / 6.0f )
+	{
+		scale = (vTexCoord.x - 1.0f / 6.0f) / (1.0f / 6.0f);		
+		vColor = vGreen + (vBlue - vGreen) * scale;
+	}
+	else if( vTexCoord.x < 3.0f / 6.0f )
+	{
+		scale = (vTexCoord.x - 2.0f / 6.0f) / (1.0f / 6.0f);
+		vColor = vBlue + (vYellow - vBlue) * scale;
+	}
+	else if( vTexCoord.x < 4.0f / 6.0f )
+	{
+		scale = (vTexCoord.x - 3.0f / 6.0f) / (1.0f / 6.0f);
+		vColor = vYellow + (vCyan - vYellow) * scale;
+	}
+	else if( vTexCoord.x < 5.0f / 6.0f )
+	{
+		scale = (vTexCoord.x - 4.0f / 6.0f) / (1.0f / 6.0f);
+		vColor = vCyan + (vMagenta - vCyan) * scale;
+	}
+	else if( vTexCoord.x <= 6.0f / 6.0f )
+	{
+		scale = (vTexCoord.x - 5.0f / 6.0f) / (1.0f / 6.0f);
+		vColor = vMagenta + (vWhite - vMagenta) * scale;
+	}
+	else
+	{
+		vColor = vWhite;
+	}
+
+    return vColor; 
+}
+
+// endof ColorRamp.txt

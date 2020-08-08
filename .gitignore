@@ -44,3 +44,8 @@ Release/
 *.log
 *.aux
 *.dvi
+*.embed.*
+*.manifest
+*.ilk
+*.aps
+*.db
